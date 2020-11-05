@@ -6,64 +6,118 @@
 using namespace std;
 class Blocks {
     public:
-    int parts[4][4];
-    void summonShape(int figure_id){
-        for (int y = 0; y < 3; y++){
-            for (int x = 0; x < 3; x++){
-                parts[x][y] = false;
-            }
-        }
+    int cell[4][2];
+    int figureShape;
+    void summonShape(int figure_id,int cell_pos_x,int cell_pos_y){
         switch (figure_id)
         {
             case 1: //square
-                parts[1][1] = true;
-                parts[1][2] = true;
-                parts[2][1] = true;
-                parts[2][2] = true;
+                //root part
+                cell[0][0] = cell_pos_x+4;
+                cell[0][1] = cell_pos_y;
+
+                cell[1][0] = cell_pos_x+5;
+                cell[1][1] = cell_pos_y;
+
+                cell[2][0] = cell_pos_x+4;
+                cell[2][1] = cell_pos_y+1;
+
+                cell[3][0] = cell_pos_x+5;
+                cell[3][1] = cell_pos_y+1;
+                
                 break;
 
             case 2: //line
-                parts[2][0] = true;
-                parts[2][1] = true;
-                parts[2][2] = true;
-                parts[2][3] = true;
+                //root part
+                cell[0][0] = cell_pos_x+3;
+                cell[0][1] = cell_pos_y;
+
+                cell[1][0] = cell_pos_x+4;
+                cell[1][1] = cell_pos_y;
+
+                cell[2][0] = cell_pos_x+5;
+                cell[2][1] = cell_pos_y;
+
+                cell[3][0] = cell_pos_x+6;
+                cell[3][1] = cell_pos_y;
                 break;
 
             case 3: //t-shape
-                parts[2][0] = true;
-                parts[1][1] = true;
-                parts[2][1] = true;
-                parts[3][1] = true;
+                //root part
+                cell[0][0] = cell_pos_x+3;
+                cell[0][1] = cell_pos_y;
+
+                cell[1][0] = cell_pos_x+4;
+                cell[1][1] = cell_pos_y;
+
+                cell[2][0] = cell_pos_x+5;
+                cell[2][1] = cell_pos_y;
+
+                cell[3][0] = cell_pos_x+4;
+                cell[3][1] = cell_pos_y+1;
                 break;
 
             case 4: //lighting-normal
-                parts[1][1] = true;
-                parts[2][1] = true;
-                parts[2][0] = true;
-                parts[3][0] = true;
+                //root part
+                cell[0][0] = cell_pos_x+4;
+                cell[0][1] = cell_pos_y;
+
+                cell[1][0] = cell_pos_x+5;
+                cell[1][1] = cell_pos_y;
+
+                cell[2][0] = cell_pos_x+3;
+                cell[2][1] = cell_pos_y+1;
+
+                cell[3][0] = cell_pos_x+4;
+                cell[3][1] = cell_pos_y+1;
                 break;
 
             case 5: //lighting-mirror
-                parts[1][0] = true;
-                parts[2][0] = true;
-                parts[2][1] = true;
-                parts[3][1] = true;
+                //root part
+                cell[0][0] = cell_pos_x+3;
+                cell[0][1] = cell_pos_y;
+
+                cell[1][0] = cell_pos_x+4;
+                cell[1][1] = cell_pos_y;
+
+                cell[2][0] = cell_pos_x+4;
+                cell[2][1] = cell_pos_y+1;
+
+                cell[3][0] = cell_pos_x+5;
+                cell[3][1] = cell_pos_y+1;
                 break;
             
             case 6: //l-shape-normal
-                parts[1][0] = true;
-                parts[2][0] = true;
-                parts[3][0] = true;
-                parts[3][1] = true;
+                //root part
+                cell[0][0] = cell_pos_x+3;
+                cell[0][1] = cell_pos_y;
+
+                cell[1][0] = cell_pos_x+4;
+                cell[1][1] = cell_pos_y;
+
+                cell[2][0] = cell_pos_x+5;
+                cell[2][1] = cell_pos_y;
+
+                cell[3][0] = cell_pos_x+5;
+                cell[3][1] = cell_pos_y+1;
                 break;
 
             case 7: //l-shape-mirror
-                parts[1][1] = true;
-                parts[1][0] = true;
-                parts[2][0] = true;
-                parts[3][0] = true;
+                //root part
+                cell[0][0] = cell_pos_x+3;
+                cell[0][1] = cell_pos_y;
+
+                cell[1][0] = cell_pos_x+3;
+                cell[1][1] = cell_pos_y+1;
+
+                cell[2][0] = cell_pos_x+5;
+                cell[2][1] = cell_pos_y;
+
+                cell[3][0] = cell_pos_x+5;
+                cell[3][1] = cell_pos_y;
                 break;
         }
+        figureShape = figure_id;
     }
 };
 
