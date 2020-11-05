@@ -9,9 +9,9 @@ int main() {
     Cetris map;
     srand(time(NULL));
     map.init();
-    map.update();
     map.blocks.summonShape(rand() % 7 + 1, 0, 0);
-    cout << map.blocks.cell[0][0] << map.blocks.cell[0][1];
-
+    //cout << map.blocks.cell[0][0] << map.blocks.cell[0][1];
+    map.update();
+    cout << map.map[0][0] << map.map[1][0];
     return 0;
 }

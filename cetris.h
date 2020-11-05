@@ -137,6 +137,16 @@ class Cetris {
     }
 
     void update(){
+        for (int c = 0; c <= 3; c++){
+            for (int y = 0; y <= MAP_HEIGHT-1; y++){
+                for (int x = 0; x <= MAP_WIDTH-1; x++){
+                    if (blocks.cell[c][0] == x && blocks.cell[c][1] == y){
+                        map[x][y] = true;
+                    }
+                }
+            }
+        }
+
         for (int y = 0; y <= MAP_HEIGHT-1; y++){
             for (int x = 0; x <= MAP_WIDTH-1; x++){
                 if (map[x][y] == false){
@@ -151,6 +161,5 @@ class Cetris {
 
     void init(){
         Cetris::createMap();
-        Cetris::update();
     }
 };
