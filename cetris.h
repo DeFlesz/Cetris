@@ -253,11 +253,11 @@ class Blocks {
                     switch(number_of_rotation){
                         case 1: //right from root
                             //up left
-                            cell[1][0] = cell[2][0]-1;
-                            cell[1][1] = cell[2][1]+1;
+                            cell[1][0] = cell[2][0]+1;
+                            cell[1][1] = cell[2][1]-1;
 
                             //up mid
-                            cell[0][0] = cell[2][0]-1;
+                            cell[0][0] = cell[2][0]+1;
                             cell[0][1] = cell[2][1];
 
                             //down right
@@ -411,14 +411,19 @@ class Blocks {
 
 class Cetris {
     public:
+        int score = 0;
+
+        bool inGame = true;
         char input;
         int rotation = 0;
         bool can_move_down;
         bool can_move_right;
         bool can_move_left;
+
         const int MAP_WIDTH = 10;
         const int MAP_HEIGHT = 20;
         bool map[10][20];
+
         Blocks blocks;
     
     void createMap(){
@@ -437,7 +442,8 @@ class Cetris {
                 can_move_down = true;
 
             } else{
-               can_move_down = false; 
+               can_move_down = false;
+               rotation = 0;
                break;
             } 
         }
@@ -477,6 +483,8 @@ class Cetris {
             blocks.moveBlock(0, 1);
         }
 
+        Cetris::scanMap();
+
         //show
         Cetris::showCells(can_move_down);
         
@@ -496,6 +504,7 @@ class Cetris {
             }
             cout << endl;
         }
+        cout << score;
     }
 
     void hideCells(bool can_move_down){
@@ -532,14 +541,34 @@ class Cetris {
         } else if (input == 'a' && can_move_left){
             blocks.moveBlock(-1, -1);
 
-        } else if (input == 'e'){
+        } else if (input == 'q'){
             rotation--;
             blocks.rotateBlock(rotation);
+            blocks.moveBlock(0, -1);
 
-        } else if (input == 'q'){
+        } else if (input == 'e'){
             rotation++;
             blocks.rotateBlock(rotation);
+            blocks.moveBlock(0, -1);
             
+        }
+    }
+
+    void scanMap(){
+        int c;
+        for (int y = 19; y>=0; y--){
+            for (int x = 9, c = 0; x>=0; x--){
+                c++;
+            }
+            if(c==10){
+                for (int x = 9, c = 0; x>=0; x--){
+                    score++;
+                    map[x][y] = false;
+                }
+            }
+            if (map[4][0] == true && blocks.cell[0][1] != y){
+                inGame = false;
+            }
         }
     }
 

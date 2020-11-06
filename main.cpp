@@ -18,6 +18,13 @@ int main() {
         system("clear");
         map.update();
         map.scanInput();
+
+        if (map.inGame == false){
+            system("clear");
+            cout << "  GAME OVER   " << endl << endl
+                 << "final score = " << map.score << endl;
+            return 0;
+        }
     }
     
     return 0;
