@@ -110,7 +110,7 @@ class Blocks {
                 cell[1][0] = cell_pos_x+3;
                 cell[1][1] = cell_pos_y+1;
 
-                cell[2][0] = cell_pos_x+5;
+                cell[2][0] = cell_pos_x+4;
                 cell[2][1] = cell_pos_y;
 
                 cell[3][0] = cell_pos_x+5;
@@ -120,19 +120,14 @@ class Blocks {
         figureShape = figure_id;
     }
     
-    void moveBlocksH(int direction, int number_of_movements){
+    void moveBlock(int v, int h){
         for (int x = 0; x < 4; x++){
-            cell[x][0] += direction*number_of_movements;
+            cell[x][0] += v;
+            cell[x][1] += h;
         }
     }
 
-    void moveBlocksD(){
-        for (int x = 0; x < 4; x++){
-            cell[x][1] += 1;
-        }
-    }
-
-    void rotateBlocks(int number_of_rotation){
+    void rotateBlock(int number_of_rotation){
         int a;
 
         if (number_of_rotation > 4){
@@ -416,11 +411,16 @@ class Blocks {
 
 class Cetris {
     public:
+        char input;
+        int rotation = 0;
+        bool can_move_down;
+        bool can_move_right;
+        bool can_move_left;
         const int MAP_WIDTH = 10;
         const int MAP_HEIGHT = 20;
         bool map[10][20];
         Blocks blocks;
-
+    
     void createMap(){
         for (int y = 0; y <= MAP_HEIGHT-1; y++){
             for (int x = 0; x <= MAP_WIDTH-1; x++){
@@ -430,14 +430,60 @@ class Cetris {
     }
 
     void update(){
-        for (int c = 0; c <= 3; c++){
-            for (int y = 0; y <= MAP_HEIGHT-1; y++){
-                for (int x = 0; x <= MAP_WIDTH-1; x++){
-                    if (blocks.cell[c][0] == x && blocks.cell[c][1] == y){
-                        map[x][y] = true;
-                    }
+        Cetris::hideCells(can_move_down);
+
+        for (int n = 0; n<4; n++){
+            if (blocks.cell[n][1]<MAP_HEIGHT-1 && map[blocks.cell[n][0]][blocks.cell[n][1]+1] == false){
+                can_move_down = true;
+
+            } else{
+               can_move_down = false; 
+               break;
+            } 
+        }
+
+        for (int n = 0; n<4; n++){
+            if (blocks.cell[n][1]<MAP_WIDTH-1 && map[blocks.cell[n][0]+1][blocks.cell[n][1]] == false){
+                can_move_right = true;
+                
+            } else{
+                can_move_right = false;
+                break;
+            } 
+        }
+
+        for (int n = 0; n<4; n++){
+            if (blocks.cell[n][1]>0 && map[blocks.cell[n][0]-1][blocks.cell[n][1]] == false){
+                can_move_left = true;
+                
+            } else{
+               can_move_left = false; 
+               break;
+            } 
+        }
+
+        // && map[blocks.cell[n][0]][blocks.cell[n][1]+1] == false
+        /*for (int x = 9; x>=0; x--){
+            for (int y = 19; y>=0; y--){
+                switch(blocks.figureShape){
+                    case 1:
                 }
             }
+        }*/
+
+        //hide
+
+        if (can_move_down==true){
+            blocks.moveBlock(0, 1);
+        }
+
+        //show
+        Cetris::showCells(can_move_down);
+        
+
+        if (can_move_down==false){
+            srand(time(NULL));
+            blocks.summonShape(rand() % 7 + 1, 0, 0);
         }
 
         for (int y = 0; y <= MAP_HEIGHT-1; y++){
@@ -449,6 +495,51 @@ class Cetris {
                 }
             }
             cout << endl;
+        }
+    }
+
+    void hideCells(bool can_move_down){
+        for (int c = 0; c <= 3; c++){
+            for (int y = 0; y <= MAP_HEIGHT-1; y++){
+                for (int x = 0; x <= MAP_WIDTH-1; x++){
+                    if (blocks.cell[c][0] == x && blocks.cell[c][1] == y && can_move_down == true){
+                        map[x][y] = false;
+                    }
+                }
+            }
+        }
+    }
+
+    void showCells(bool can_move_down){
+        for (int c = 0; c <= 3; c++){
+            for (int y = 0; y <= MAP_HEIGHT-1; y++){
+                for (int x = 0; x <= MAP_WIDTH-1; x++){
+                    if (blocks.cell[c][0] == x && blocks.cell[c][1] == y){
+                        map[x][y] = true;
+                    }
+                }
+            }
+        }
+    }
+
+    void scanInput(){
+        input = getchar();
+        Cetris::hideCells(can_move_down);
+        if (input == 'd' && can_move_right)
+        {
+            blocks.moveBlock(1, -1);
+
+        } else if (input == 'a' && can_move_left){
+            blocks.moveBlock(-1, -1);
+
+        } else if (input == 'e'){
+            rotation--;
+            blocks.rotateBlock(rotation);
+
+        } else if (input == 'q'){
+            rotation++;
+            blocks.rotateBlock(rotation);
+            
         }
     }
 
