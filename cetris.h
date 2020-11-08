@@ -413,6 +413,7 @@ class Cetris {
     public:
         int score = 0;
 
+        string nos;
         bool inGame = true;
         char input;
         int rotation = 0;
@@ -436,7 +437,8 @@ class Cetris {
 
     void update(){
         Cetris::hideCells(can_move_down);
-
+        can_move_right = true;
+        can_move_left = true;
         for (int n = 0; n<4; n++){
             if (blocks.cell[n][1]<MAP_HEIGHT-1 && map[blocks.cell[n][0]][blocks.cell[n][1]+1] == false){
                 can_move_down = true;
@@ -449,7 +451,7 @@ class Cetris {
         }
 
         for (int n = 0; n<4; n++){
-            if (blocks.cell[n][1]<MAP_WIDTH-1 && map[blocks.cell[n][0]+1][blocks.cell[n][1]] == false){
+            if (blocks.cell[n][0]<MAP_WIDTH-1 && map[blocks.cell[n][0]+1][blocks.cell[n][1]] == false){
                 can_move_right = true;
                 
             } else{
@@ -459,7 +461,7 @@ class Cetris {
         }
 
         for (int n = 0; n<4; n++){
-            if (blocks.cell[n][1]>0 && map[blocks.cell[n][0]-1][blocks.cell[n][1]] == false){
+            if (blocks.cell[n][0]>0 && map[blocks.cell[n][0]-1][blocks.cell[n][1]] == false){
                 can_move_left = true;
                 
             } else{
@@ -487,14 +489,9 @@ class Cetris {
 
         //show
         Cetris::showCells(can_move_down);
-        
-
-        if (can_move_down==false){
-            srand(time(NULL));
-            blocks.summonShape(rand() % 7 + 1, 0, 0);
-        }
-
+        cout << endl << "$$$$$$$$$$$$$$$$$$$$$$$$$$$" << endl;
         for (int y = 0; y <= MAP_HEIGHT-1; y++){
+            cout << "$";
             for (int x = 0; x <= MAP_WIDTH-1; x++){
                 if (map[x][y] == false){
                     cout << ".";
@@ -502,9 +499,28 @@ class Cetris {
                     cout << "#";
                 }
             }
+            cout << "$";
+            if (y == 5){
+                nos = to_string(score);
+                cout << "   score: " << score;
+                for (int n = 4; n > nos.length(); n--){
+                    cout << " ";
+                }
+            } else{
+                cout << "              ";
+            }
+            cout << "$";
             cout << endl;
         }
-        cout << score;
+        cout << "$$$$$$$$$$$$$$$$$$$$$$$$$$$" << endl;
+
+        cout << "move: ";
+        Cetris::scanInput();
+
+        if (can_move_down==false){
+            srand(time(NULL));
+            blocks.summonShape(rand() % 7 + 1, 0, 0);
+        }
     }
 
     void hideCells(bool can_move_down){
@@ -552,18 +568,34 @@ class Cetris {
             blocks.moveBlock(0, -1);
             
         }
+        system("clear");
     }
 
     void scanMap(){
         int c;
+        int dl;
         for (int y = 19; y>=0; y--){
-            for (int x = 9, c = 0; x>=0; x--){
-                c++;
+            c = 0;
+            for (int x = 9; x>=0; x--){
+                if (map[x][y]==true){
+                    c++;
+                }      
             }
+
             if(c==10){
                 for (int x = 9, c = 0; x>=0; x--){
                     score++;
                     map[x][y] = false;
+
+                }
+
+                for (int dl = y; dl>0; dl--){
+                    for (int x = 9; x>=0; x--){
+                        if(map[x][dl-1] == true){
+                            map[x][dl] = true;
+                        }  
+                        map[x][dl-1] = false;
+                    }
                 }
             }
             if (map[4][0] == true && blocks.cell[0][1] != y){
