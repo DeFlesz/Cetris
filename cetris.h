@@ -8,7 +8,6 @@ class Blocks {
     public:
     int cell[4][2];
     int figureShape;
-    int StateOfRotation = 0;
     void summonShape(int figure_id,int cell_pos_x,int cell_pos_y){
         switch (figure_id){
             case 1: //square
@@ -145,85 +144,104 @@ class Blocks {
     }
 
     void rotateBlock(int number_of_rotation){
-        int a;
-
+        if (number_of_rotation < 0){
+            number_of_rotation *= -1;
+        }
         if (number_of_rotation > 4){
             number_of_rotation %= 4;
         }
         for (int x = 0; x < 4; x++){
             switch (figureShape){
                 case 2: //line
-                    switch (StateOfRotation){
-                        case 0: //inline
-                            a = 1;
-                            StateOfRotation = 1;
-                            break;
+                    if (number_of_rotation > 1){
+                        number_of_rotation %= 2;
+                    }
+                    switch (number_of_rotation){
                         case 1: //column
-                            a = -1;
-                            StateOfRotation = 0;
+                            //root part
+                            cell[0][0] = cell[0][0]+2;
+                            cell[0][1] = cell[0][1]-1;
+
+                            cell[1][0] = cell[0][0];
+                            cell[1][1] = cell[0][1]+1;
+
+                            cell[2][0] = cell[0][0];
+                            cell[2][1] = cell[0][1]+2;
+
+                            cell[3][0] = cell[0][0];
+                            cell[3][1] = cell[0][1]+3;
+                            break;
+                        default: //inline
+                            //root part
+                            cell[0][0] = cell[0][0]-2;
+                            cell[0][1] = cell[0][1]+1;
+
+                            cell[1][0] = cell[0][0]+1;
+                            cell[1][1] = cell[0][1];
+
+                            cell[2][0] = cell[0][0]+2;
+                            cell[2][1] = cell[0][1];
+
+                            cell[3][0] = cell[0][0]+3;
+                            cell[3][1] = cell[0][1];
                             break;
                     }
-                    for (int x = 3; x >= 0; x--){
-                                cell[x][0] += (a*-1)*x;
-                                cell[x][1] += a*x;
-                            }
-                    break;
                 case 3: //t
                     switch (number_of_rotation){
                         case 1: //right from root
-                            //lewa
-                            cell[0][0] = cell[1][0];
-                            cell[0][1] = cell[1][1]+1;
+                            //left part
+                            cell[1][0] = cell[0][0];
+                            cell[1][1] = cell[0][1]-1;
 
-                            //prawa
-                            cell[2][0] = cell[1][0];
-                            cell[2][1] = cell[1][1]-1;
+                            //right part
+                            cell[2][0] = cell[0][0];
+                            cell[2][1] = cell[0][1]+1;
 
-                            //dolny czubek
-                            cell[3][0] = cell[1][0]-1;
-                            cell[3][1] = cell[1][1];
+                            //up part
+                            cell[3][0] = cell[0][0]+1;
+                            cell[3][1] = cell[0][1];
                             break;
 
                         case 2: //nose up
-                            //lewa
-                            cell[0][0] = cell[1][0]-1;
-                            cell[0][1] = cell[1][1];
+                            //left part
+                            cell[1][0] = cell[0][0]+1;
+                            cell[1][1] = cell[0][1];
 
-                            //prawa
-                            cell[2][0] = cell[1][0]+1;
-                            cell[2][1] = cell[1][1];
+                            //right part
+                            cell[2][0] = cell[0][0]-1;
+                            cell[2][1] = cell[0][1];
 
-                            //dolny czubek
-                            cell[3][0] = cell[1][0];
-                            cell[3][1] = cell[1][1]-1;
+                            //up part
+                            cell[3][0] = cell[0][0];
+                            cell[3][1] = cell[0][1]+1;
                             break;
 
                         case 3: //left from root
-                            //lewa
-                            cell[0][0] = cell[1][0];
-                            cell[0][1] = cell[1][1]-1;
+                            //left part
+                            cell[1][0] = cell[0][0];
+                            cell[1][1] = cell[0][1]+1;
 
-                            //prawa
-                            cell[2][0] = cell[1][0];
-                            cell[2][1] = cell[1][1]+1;
+                            //right part
+                            cell[2][0] = cell[0][0];
+                            cell[2][1] = cell[0][1]-1;
 
-                            //dolny czubek
-                            cell[3][0] = cell[1][0]+1;
-                            cell[3][1] = cell[1][1];
+                            //up part
+                            cell[3][0] = cell[0][0]-1;
+                            cell[3][1] = cell[0][1];
                             break;
 
                         default:
-                            //lewa
-                            cell[0][0] = cell[1][0]-1;
-                            cell[0][1] = cell[1][1];
+                            //left part
+                            cell[1][0] = cell[0][0]-1;
+                            cell[1][1] = cell[0][1];
 
-                            //prawa
-                            cell[2][0] = cell[1][0]+1;
-                            cell[2][1] = cell[1][1];
+                            //right part
+                            cell[2][0] = cell[0][0]+1;
+                            cell[2][1] = cell[0][1];
 
-                            //dolny czubek
-                            cell[3][0] = cell[1][0];
-                            cell[3][1] = cell[1][1]+1;
+                            //up part
+                            cell[3][0] = cell[0][0];
+                            cell[3][1] = cell[0][1]-1;
                             break;
                         
                     }
@@ -232,34 +250,35 @@ class Blocks {
                     if (number_of_rotation > 1){
                         number_of_rotation %= 2;
                     }
-                    switch(number_of_rotation){
+                    switch(number_of_rotation){ //lighting-normal
                         case 1: //right from root
-                            //up right
-                            cell[1][0] = cell[2][0]-1;
-                            cell[1][1] = cell[2][1]+1;
-
                             //up mid
-                            cell[0][0] = cell[2][0]-1;
-                            cell[0][1] = cell[2][1];
+                            cell[1][0] = cell[0][0]-1;
+                            cell[1][1] = cell[0][1];
 
-                            //down left
-                            cell[3][0] = cell[2][0];
-                            cell[3][1] = cell[2][1]-1;
+                            //up right
+                            cell[2][0] = cell[0][0]-1;
+                            cell[2][1] = cell[0][1]-1;
+
+                            //left root
+                            cell[3][0] = cell[0][0];
+                            cell[3][1] = cell[0][1]+1;
                             break;
 
                         default:
-                            //up right
-                            cell[1][0] = cell[2][0]+1;
-                            cell[1][1] = cell[2][1]+1;
-
                             //up mid
-                            cell[0][0] = cell[2][0];
-                            cell[0][1] = cell[2][1]+1;
+                            cell[1][0] = cell[0][0];
+                            cell[1][1] = cell[0][1]-1;
 
-                            //down left
-                            cell[3][0] = cell[2][0]-1;
-                            cell[3][1] = cell[2][1];
+                            //up right
+                            cell[2][0] = cell[0][0]+1;
+                            cell[2][1] = cell[0][1]-1;
+
+                            //left root
+                            cell[3][0] = cell[0][0]-1;
+                            cell[3][1] = cell[0][1];
                             break;
+                            
                         
                     }
                     break;
@@ -267,33 +286,33 @@ class Blocks {
                     if (number_of_rotation > 1){
                         number_of_rotation %= 2;
                     }
-                    switch(number_of_rotation){
+                    switch(number_of_rotation){ //lighting-normal
                         case 1: //right from root
-                            //up left
-                            cell[1][0] = cell[2][0]+1;
-                            cell[1][1] = cell[2][1]-1;
-
                             //up mid
-                            cell[0][0] = cell[2][0]+1;
-                            cell[0][1] = cell[2][1];
+                            cell[1][0] = cell[0][0]+1;
+                            cell[1][1] = cell[0][1];
 
-                            //down right
-                            cell[3][0] = cell[2][0];
-                            cell[3][1] = cell[2][1]+1;
+                            //up left
+                            cell[2][0] = cell[0][0]+1;
+                            cell[2][1] = cell[0][1]-1;
+
+                            //right root
+                            cell[3][0] = cell[0][0];
+                            cell[3][1] = cell[0][1]+1;
                             break;
 
                         default:
-                            //up left
-                            cell[1][0] = cell[2][0]-1;
-                            cell[1][1] = cell[2][1]+1;
-
                             //up mid
-                            cell[0][0] = cell[2][0];
-                            cell[0][1] = cell[2][1]+1;
+                            cell[1][0] = cell[0][0];
+                            cell[1][1] = cell[0][1]-1;
 
-                            //down right
-                            cell[3][0] = cell[2][0]+1;
-                            cell[3][1] = cell[2][1];
+                            //up left
+                            cell[2][0] = cell[0][0]-1;
+                            cell[2][1] = cell[0][1]-1;
+
+                            //right root
+                            cell[3][0] = cell[0][0]+1;
+                            cell[3][1] = cell[0][1];
                             break;
                         
                     }
@@ -301,59 +320,59 @@ class Blocks {
                 case 6:
                     switch(number_of_rotation){
                         case 1: //right from root
-                            //right
-                            cell[2][0] = cell[1][0];
-                            cell[2][1] = cell[1][1];
-
                             //left
-                            cell[0][0] = cell[1][0];
-                            cell[0][1] = cell[1][1];
-
-                            //down right
-                            cell[3][0] = cell[1][0];
-                            cell[3][1] = cell[1][1];
+                            cell[1][0] = cell[0][0];
+                            cell[1][1] = cell[0][1]+1;
+            
+                            //right
+                            cell[2][0] = cell[0][0];
+                            cell[2][1] = cell[0][1]-1;
+            
+                            //up right
+                            cell[3][0] = cell[0][0]+1;
+                            cell[3][1] = cell[0][1]+1;
                             break;
 
                         case 2: //upside down
-                            //right
-                            cell[2][0] = cell[1][0]-1;
-                            cell[2][1] = cell[1][1];
-
                             //left
-                            cell[0][0] = cell[1][0]+1;
-                            cell[0][1] = cell[1][1];
-
-                            //down left
-                            cell[3][0] = cell[1][0]+1;
-                            cell[3][1] = cell[1][1]-1;
+                            cell[1][0] = cell[0][0]-1;
+                            cell[1][1] = cell[0][1];
+            
+                            //right
+                            cell[2][0] = cell[0][0]+1;
+                            cell[2][1] = cell[0][1];
+            
+                            //up right
+                            cell[3][0] = cell[0][0]-1;
+                            cell[3][1] = cell[0][1]+1;
                             break;
 
                         case 3: //left from root
-                            //right
-                            cell[2][0] = cell[1][0];
-                            cell[2][1] = cell[1][1];
-
                             //left
-                            cell[0][0] = cell[1][0];
-                            cell[0][1] = cell[1][1];
-
-                            //down left
-                            cell[3][0] = cell[1][0];
-                            cell[3][1] = cell[1][1];
+                            cell[1][0] = cell[0][0];
+                            cell[1][1] = cell[0][1]-1;
+            
+                            //right
+                            cell[2][0] = cell[0][0];
+                            cell[2][1] = cell[0][1]+1;
+            
+                            //up right
+                            cell[3][0] = cell[0][0]-1;
+                            cell[3][1] = cell[0][1]-1;
                             break;
 
                         default:
-                            //right
-                            cell[2][0] = cell[1][0]+1;
-                            cell[2][1] = cell[1][1];
-
                             //left
-                            cell[0][0] = cell[1][0]-1;
-                            cell[0][1] = cell[1][1];
+                            cell[1][0] = cell[0][0]-1;
+                            cell[1][1] = cell[0][1];
 
-                            //down left
-                            cell[3][0] = cell[1][0]-1;
-                            cell[3][1] = cell[1][1]+1;
+                            //right
+                            cell[2][0] = cell[0][0]+1;
+                            cell[2][1] = cell[0][1];
+
+                            //up right
+                            cell[3][0] = cell[0][0]+1;
+                            cell[3][1] = cell[0][1]-1;
                             break;
                         
                     }
@@ -361,59 +380,59 @@ class Blocks {
                 case 7:
                     switch(number_of_rotation){
                         case 1: //right from root
-                            //right
-                            cell[2][0] = cell[1][0];
-                            cell[2][1] = cell[1][1];
-
                             //left
-                            cell[0][0] = cell[1][0];
-                            cell[0][1] = cell[1][1];
-
-                            //down right
-                            cell[3][0] = cell[1][0];
-                            cell[3][1] = cell[1][1];
+                            cell[1][0] = cell[0][0];
+                            cell[1][1] = cell[0][1]+1;
+            
+                            //right
+                            cell[2][0] = cell[0][0];
+                            cell[2][1] = cell[0][1]-1;
+            
+                            //up left
+                            cell[3][0] = cell[0][0]+1;
+                            cell[3][1] = cell[0][1]-1;
                             break;
 
                         case 2: //upside down
-                            //right
-                            cell[2][0] = cell[1][0]-1;
-                            cell[2][1] = cell[1][1];
-
                             //left
-                            cell[0][0] = cell[1][0]+1;
-                            cell[0][1] = cell[1][1];
-
-                            //down left
-                            cell[3][0] = cell[1][0]+1;
-                            cell[3][1] = cell[1][1]-1;
+                            cell[1][0] = cell[0][0]-1;
+                            cell[1][1] = cell[0][1];
+            
+                            //right
+                            cell[2][0] = cell[0][0]+1;
+                            cell[2][1] = cell[0][1];
+            
+                            //up left
+                            cell[3][0] = cell[0][0]+1;
+                            cell[3][1] = cell[0][1]+1;
                             break;
 
                         case 3: //left from root
-                            //right
-                            cell[2][0] = cell[1][0];
-                            cell[2][1] = cell[1][1];
-
                             //left
-                            cell[0][0] = cell[1][0];
-                            cell[0][1] = cell[1][1];
-
-                            //down left
-                            cell[3][0] = cell[1][0];
-                            cell[3][1] = cell[1][1];
+                            cell[1][0] = cell[0][0];
+                            cell[1][1] = cell[0][1]-1;
+            
+                            //right
+                            cell[2][0] = cell[0][0];
+                            cell[2][1] = cell[0][1]+1;
+            
+                            //up left
+                            cell[3][0] = cell[0][0]-1;
+                            cell[3][1] = cell[0][1]+1;
                             break;
 
                         default:
-                            //right
-                            cell[2][0] = cell[1][0]+1;
-                            cell[2][1] = cell[1][1];
-
                             //left
-                            cell[0][0] = cell[1][0]-1;
-                            cell[0][1] = cell[1][1];
+                            cell[1][0] = cell[0][0]-1;
+                            cell[1][1] = cell[0][1];
 
-                            //down left
-                            cell[3][0] = cell[1][0]-1;
-                            cell[3][1] = cell[1][1]+1;
+                            //right
+                            cell[2][0] = cell[0][0]+1;
+                            cell[2][1] = cell[0][1];
+
+                            //up left
+                            cell[3][0] = cell[0][0]-1;
+                            cell[3][1] = cell[0][1]-1;
                             break;
                         
                     }
@@ -576,13 +595,13 @@ class Cetris {
 
         } else if (input == 'q'){
             rotation--;
-            blocks.rotateBlock(rotation);
             blocks.moveBlock(0, -1);
+            blocks.rotateBlock(rotation);
 
         } else if (input == 'e'){
             rotation++;
-            blocks.rotateBlock(rotation);
             blocks.moveBlock(0, -1);
+            blocks.rotateBlock(rotation);
             
         }
         system("clear");

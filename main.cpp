@@ -43,7 +43,8 @@ int main() {
     system("clear");
     srand(time(NULL));
     map.init();
-    map.blocks.summonShape(rand() % 7 + 1, 0, 0);
+    //map.blocks.summonShape(rand() % 7 + 1, 0, 0);
+    map.blocks.summonShape(2, 0, 0);
     //cout << map.blocks.cell[0][0] << map.blocks.cell[0][1];
     while (1){
         //usleep(6*10000);
