@@ -10,36 +10,37 @@ Cetris map;
 
 void printEndScreen(){
     system("clear");
-    cout << endl << "$$$$$$$$$$$$$$$$$$$$$$$$$$$" << endl;
-    cout << "$..........$              $" << endl;
-    cout << "$..........$              $" << endl;
-    cout << "$..........$              $" << endl;
-    cout << "$..........$              $" << endl;
-    cout << "$..........$              $" << endl;
-    cout << "$..........$              $" << endl;
-    cout << "$.....--------------      $" << endl;
-    cout << "$....|              |     $" << endl;
-    cout << "$....|   GAME OVER  |     $" << endl;
-    cout << "$....|              |     $" << endl;
-    cout << "$....|   SCORE: " << map.score;
+    cout << endl << "╔══════════╦══════════════╗" << endl;
+    cout << "║          ║              ║" << endl;
+    cout << "║          ║              ║" << endl;
+    cout << "║          ║              ║" << endl;
+    cout << "║          ║              ║" << endl;
+    cout << "║          ║              ║" << endl;
+    cout << "║          ║              ║" << endl;
+    cout << "║    ╔══════════════╗     ║" << endl;
+    cout << "║    ║              ║     ║" << endl;
+    cout << "║    ║   GAME OVER  ║     ║" << endl;
+    cout << "║    ║              ║     ║" << endl;
+    cout << "║    ║   SCORE: " << map.score;
     for (int n = 4; n > map.nos.length(); n--){
         cout << " ";
     }
-    cout << "|     $" << endl;
-    cout << "$....|              |     $" << endl;
-    cout << "$.....--------------      $" << endl;
-    cout << "$..........$              $" << endl;
-    cout << "$..........$              $" << endl;
-    cout << "$..........$              $" << endl;
-    cout << "$..........$              $" << endl;
-    cout << "$..........$              $" << endl;
-    cout << "$..........$              $" << endl;
-    cout << "$ game by: GitHub/DeFlesz $" << endl;
-    cout << "$$$$$$$$$$$$$$$$$$$$$$$$$$$" << endl;
+    cout << "║     ║" << endl;
+    cout << "║    ║              ║     ║" << endl;
+    cout << "║    ╚═════╦════════╝     ║" << endl;
+    cout << "║          ║              ║" << endl;
+    cout << "║          ║              ║" << endl;
+    cout << "║          ║              ║" << endl;
+    cout << "║          ║              ║" << endl;
+    cout << "║          ║              ║" << endl;
+    cout << "║          ║              ║" << endl;
+    cout << "║ game by: GitHub/DeFlesz ║" << endl;
+    cout << "╚══════════╩══════════════╝" << endl;
 }
 
 using namespace std;
 int main() {
+    system("clear");
     srand(time(NULL));
     map.init();
     map.blocks.summonShape(rand() % 7 + 1, 0, 0);

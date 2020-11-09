@@ -16,14 +16,14 @@ class Blocks {
                 cell[0][0] = cell_pos_x+4;
                 cell[0][1] = cell_pos_y;
 
-                cell[1][0] = cell_pos_x+5;
-                cell[1][1] = cell_pos_y;
+                cell[1][0] = cell[0][0]+1;
+                cell[1][1] = cell[0][1];
 
-                cell[2][0] = cell_pos_x+4;
-                cell[2][1] = cell_pos_y+1;
+                cell[2][0] = cell[0][0];
+                cell[2][1] = cell[0][1]-1;
 
-                cell[3][0] = cell_pos_x+5;
-                cell[3][1] = cell_pos_y+1;
+                cell[3][0] = cell[0][0]+1;
+                cell[3][1] = cell[0][1]-1;
                 
                 break;
 
@@ -32,90 +32,107 @@ class Blocks {
                 cell[0][0] = cell_pos_x+3;
                 cell[0][1] = cell_pos_y;
 
-                cell[1][0] = cell_pos_x+4;
-                cell[1][1] = cell_pos_y;
+                cell[1][0] = cell[0][0]+1;
+                cell[1][1] = cell[0][1];
 
-                cell[2][0] = cell_pos_x+5;
-                cell[2][1] = cell_pos_y;
+                cell[2][0] = cell[0][0]+2;
+                cell[2][1] = cell[0][1];
 
-                cell[3][0] = cell_pos_x+6;
-                cell[3][1] = cell_pos_y;
+                cell[3][0] = cell[0][0]+3;
+                cell[3][1] = cell[0][1];
                 break;
 
+            //needs refactoring
             case 3: //t-shape
-                cell[0][0] = cell_pos_x+3;
-                cell[0][1] = cell_pos_y;
-
-                cell[1][0] = cell_pos_x+4;
-                cell[1][1] = cell_pos_y;
-
-                cell[2][0] = cell_pos_x+5;
-                cell[2][1] = cell_pos_y;
-
                 //root part
-                cell[3][0] = cell_pos_x+4;
-                cell[3][1] = cell_pos_y+1;
-                break;
-
-            case 4: //lighting-normal
                 cell[0][0] = cell_pos_x+4;
                 cell[0][1] = cell_pos_y;
 
-                cell[1][0] = cell_pos_x+5;
-                cell[1][1] = cell_pos_y;
+                //left part
+                cell[1][0] = cell[0][0]-1;
+                cell[1][1] = cell[0][1];
 
+                //right part
+                cell[2][0] = cell[0][0]+1;
+                cell[2][1] = cell[0][1];
+
+                //up part
+                cell[3][0] = cell[0][0];
+                cell[3][1] = cell[0][1]-1;
+                break;
+
+            case 4: //lighting-normal
                 //root part
-                cell[2][0] = cell_pos_x+3;
-                cell[2][1] = cell_pos_y+1;
+                cell[0][0] = cell_pos_x+4;
+                cell[0][1] = cell_pos_y;
 
-                cell[3][0] = cell_pos_x+4;
-                cell[3][1] = cell_pos_y+1;
+                //up mid
+                cell[1][0] = cell[0][0];
+                cell[1][1] = cell[0][1]-1;
+
+                //up right
+                cell[2][0] = cell[0][0]+1;
+                cell[2][1] = cell[0][1]-1;
+
+                //left root
+                cell[3][0] = cell[0][0]-1;
+                cell[3][1] = cell[0][1];
                 break;
 
             case 5: //lighting-mirror
-                cell[0][0] = cell_pos_x+3;
+                //root part
+                cell[0][0] = cell_pos_x+4;
                 cell[0][1] = cell_pos_y;
 
-                cell[1][0] = cell_pos_x+4;
-                cell[1][1] = cell_pos_y;
+                //up mid
+                cell[1][0] = cell[0][0];
+                cell[1][1] = cell[0][1]-1;
 
-                //root part
-                cell[2][0] = cell_pos_x+4;
-                cell[2][1] = cell_pos_y+1;
+                //up left
+                cell[2][0] = cell[0][0]-1;
+                cell[2][1] = cell[0][1]-1;
 
-                cell[3][0] = cell_pos_x+5;
-                cell[3][1] = cell_pos_y+1;
+                //right root
+                cell[3][0] = cell[0][0]+1;
+                cell[3][1] = cell[0][1];
                 break;
             
             case 6: //l-shape-normal
                 //root part
-                cell[0][0] = cell_pos_x+3;
+                cell[0][0] = cell_pos_x+4;
                 cell[0][1] = cell_pos_y;
 
-                cell[1][0] = cell_pos_x+4;
-                cell[1][1] = cell_pos_y;
+                //left
+                cell[1][0] = cell[0][0]-1;
+                cell[1][1] = cell[0][1];
 
-                cell[2][0] = cell_pos_x+5;
-                cell[2][1] = cell_pos_y;
+                //right
+                cell[2][0] = cell[0][0]+1;
+                cell[2][1] = cell[0][1];
 
-                cell[3][0] = cell_pos_x+5;
-                cell[3][1] = cell_pos_y+1;
+                //up right
+                cell[3][0] = cell[0][0]+1;
+                cell[3][1] = cell[0][1]-1;
                 break;
 
             case 7: //l-shape-mirror
                 //root part
-                cell[0][0] = cell_pos_x+3;
+                cell[0][0] = cell_pos_x+4;
                 cell[0][1] = cell_pos_y;
 
-                cell[1][0] = cell_pos_x+3;
-                cell[1][1] = cell_pos_y+1;
+                //left
+                cell[1][0] = cell[0][0]-1;
+                cell[1][1] = cell[0][1];
 
-                cell[2][0] = cell_pos_x+4;
-                cell[2][1] = cell_pos_y;
+                //right
+                cell[2][0] = cell[0][0]+1;
+                cell[2][1] = cell[0][1];
 
-                cell[3][0] = cell_pos_x+5;
-                cell[3][1] = cell_pos_y;
+                //up left
+                cell[3][0] = cell[0][0]-1;
+                cell[3][1] = cell[0][1]-1;
                 break;
+
         }
         figureShape = figure_id;
     }
@@ -489,17 +506,17 @@ class Cetris {
 
         //show
         Cetris::showCells(can_move_down);
-        cout << endl << "$$$$$$$$$$$$$$$$$$$$$$$$$$$" << endl;
+        cout << endl << "╔══════════╦══════════════╗" << endl;
         for (int y = 0; y <= MAP_HEIGHT-1; y++){
-            cout << "$";
+            cout << "║";
             for (int x = 0; x <= MAP_WIDTH-1; x++){
                 if (map[x][y] == false){
-                    cout << ".";
+                    cout << " ";
                 } else {
                     cout << "#";
                 }
             }
-            cout << "$";
+            cout << "║";
             if (y == 5){
                 nos = to_string(score);
                 cout << "   score: " << score;
@@ -509,10 +526,10 @@ class Cetris {
             } else{
                 cout << "              ";
             }
-            cout << "$";
+            cout << "║";
             cout << endl;
         }
-        cout << "$$$$$$$$$$$$$$$$$$$$$$$$$$$" << endl;
+        cout << "╚══════════╩══════════════╝" << endl;
 
         cout << "move: ";
         Cetris::scanInput();
@@ -597,6 +614,7 @@ class Cetris {
                         map[x][dl-1] = false;
                     }
                 }
+                Cetris::update();
             }
             if (map[4][0] == true && blocks.cell[0][1] != y){
                 inGame = false;
