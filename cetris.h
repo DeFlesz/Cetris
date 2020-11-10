@@ -137,7 +137,7 @@ class Blocks {
     }
     
     void moveBlock(int v, int h){
-        for (int x = 0; x < 4; x++){
+        for (int x = 3; x >= 0; x--){
             cell[x][0] += v;
             cell[x][1] += h;
         }
@@ -158,10 +158,6 @@ class Blocks {
                     }
                     switch (number_of_rotation){
                         case 1: //column
-                            //root part
-                            cell[0][0] = cell[0][0]+2;
-                            cell[0][1] = cell[0][1]-1;
-
                             cell[1][0] = cell[0][0];
                             cell[1][1] = cell[0][1]+1;
 
@@ -172,10 +168,6 @@ class Blocks {
                             cell[3][1] = cell[0][1]+3;
                             break;
                         default: //inline
-                            //root part
-                            cell[0][0] = cell[0][0]-2;
-                            cell[0][1] = cell[0][1]+1;
-
                             cell[1][0] = cell[0][0]+1;
                             cell[1][1] = cell[0][1];
 
@@ -186,6 +178,7 @@ class Blocks {
                             cell[3][1] = cell[0][1];
                             break;
                     }
+                    break;
                 case 3: //t
                     switch (number_of_rotation){
                         case 1: //right from root
@@ -548,9 +541,8 @@ class Cetris {
             cout << "║";
             cout << endl;
         }
-        cout << "╚══════════╩══════════════╝" << endl;
-
-        cout << "move: ";
+        cout << "╚══════════╩══════════════╝" << endl << "move: ";
+        //cout << blocks.cell[0][0] << blocks.cell[0][1] << endl << blocks.cell[1][0] << blocks.cell[1][1] << endl << blocks.cell[2][0] << blocks.cell[2][1] << endl << blocks.cell[3][0] << blocks.cell[3][1] << endl;
         Cetris::scanInput();
 
         if (can_move_down==false){
