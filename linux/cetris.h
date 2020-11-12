@@ -625,7 +625,6 @@ class Cetris {
                         map[x][dl-1] = false;
                     }
                 }
-                Cetris::update();
             }
             if (map[4][0] == true && blocks.cell[0][1] != y){
                 inGame = false;
