@@ -1,5 +1,7 @@
 # Cetris
 
-A, D to move block
-Enter to accept moves or move down
-Q, R to rotate left and right
+A, D to move block<br>
+Enter to accept moves or move down<br>
+Q, R to rotate left and right<br>
+
+.gitignore not working for some reason.
